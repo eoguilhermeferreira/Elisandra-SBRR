@@ -13,11 +13,18 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Raleway:wght@300;400;500;600&family=Cormorant+Garamond:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
+    /* ===== ARIAL PARA NÚMEROS ===== */
+    @font-face {
+      font-family: 'NumArial';
+      src: local('Arial'), local('Helvetica Neue'), local('sans-serif');
+      unicode-range: U+0030-0039, U+002C, U+002E, U+0025;
+    }
+
     /* ===== RESET & BASE ===== */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; font-size: 16px; }
     body {
-      font-family: 'Raleway', sans-serif;
+      font-family: 'NumArial', 'Raleway', sans-serif;
       background-color: #F5EFE6;
       color: #1A1A1A;
       overflow-x: hidden;
@@ -44,7 +51,7 @@
 
     /* ===== TYPOGRAPHY ===== */
     .font-playfair { font-family: 'Playfair Display', serif; }
-    h1, h2, h3 { font-family: 'Playfair Display', serif; line-height: 1.2; }
+    h1, h2, h3 { font-family: 'NumArial', 'Playfair Display', serif; line-height: 1.2; }
 
     /* ===== SECTION BASE ===== */
     .section {
@@ -87,13 +94,22 @@
       height: 54px;
       border-radius: 8px;
       cursor: pointer;
-      transition: background var(--transition), color var(--transition);
+      transition: background var(--transition), color var(--transition), transform 0.15s ease, box-shadow 0.15s ease;
       width: 100%;
       text-align: center;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
     }
-    .btn-cta:hover, .btn-cta:active {
+    .btn-cta:hover {
       background: var(--gold);
       color: var(--wine);
+      box-shadow: 0 6px 20px rgba(201,168,76,0.35);
+    }
+    .btn-cta:active {
+      background: var(--gold);
+      color: var(--wine);
+      transform: scale(0.97);
+      box-shadow: 0 2px 8px rgba(201,168,76,0.2);
     }
     .btn-cta-outline {
       background: transparent;
@@ -103,6 +119,11 @@
     .btn-cta-outline:hover {
       background: var(--gold);
       color: var(--wine);
+    }
+    .btn-cta-outline:active {
+      background: var(--gold);
+      color: var(--wine);
+      transform: scale(0.97);
     }
 
     /* ===== MOBILE NAVBAR ===== */
@@ -345,20 +366,21 @@
     #empreendimento { background: #fff; }
     .cards-grid {
       display: grid;
-      grid-template-columns: 1fr;
-      gap: 16px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
       margin-bottom: 36px;
     }
     .card {
       background: var(--cream);
       border-radius: var(--radius);
-      padding: 24px 20px;
+      padding: 18px 14px;
       text-align: center;
       border: 1px solid rgba(201,168,76,0.2);
       transition: box-shadow var(--transition), transform var(--transition);
+      -webkit-tap-highlight-color: transparent;
     }
-    .card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
-    .card-icon { font-size: 36px; margin-bottom: 12px; }
+    .card:hover, .card:active { box-shadow: var(--shadow); transform: translateY(-2px); }
+    .card-icon { font-size: 30px; margin-bottom: 10px; }
     .card-title {
       font-family: Arial, sans-serif;
       font-size: 15px;
@@ -778,9 +800,14 @@
       border: none;
       position: relative;
     }
-    .floating-btn:hover, .floating-btn:active {
+    .floating-btn:hover {
       transform: scale(1.12);
       box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+    }
+    .floating-btn:active {
+      transform: scale(0.93);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
     }
     .floating-btn-wpp { background: #25D366; }
     .floating-btn-insta { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); }
