@@ -308,13 +308,14 @@
       font-weight: 300;
     }
     .hero-consultant {
-      font-size: 14px;
+      font-size: 20px;
       color: var(--gold);
+      font-family: 'Playfair Display', serif;
       font-weight: 600;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      margin-bottom: 12px;
-      opacity: 0.9;
+      letter-spacing: 0.5px;
+      margin-bottom: 16px;
+      text-align: center;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.3);
     }
     .hero-cta { margin-bottom: 0; }
 
@@ -1035,10 +1036,9 @@
 
     <!-- SOBRE MIM -->
     <section class="section" id="sobre-mim">
-      <div class="section-header" style="text-align:left;">
+      <div class="section-header" style="text-align:center;">
         <h2 class="section-title">Sobre Mim</h2>
-        <p style="font-family:'Playfair Display',serif;font-size:18px;color:var(--wine);font-weight:600;margin-bottom:4px;">Elisandra Correa</p>
-        <p style="font-size:13px;color:#888;letter-spacing:1px;text-transform:uppercase;margin-bottom:24px;">Consultora de Vendas</p>
+        <p style="font-family:'Playfair Display',serif;font-size:22px;color:var(--wine);font-weight:700;margin-bottom:24px;">Elisandra Correa</p>
       </div>
       <div class="sobre-inner">
         <div class="sobre-photo-wrap">
@@ -1149,7 +1149,7 @@
         <div class="carousel-track" id="carouselTrack">
           <div class="carousel-card" data-video="WhatsApp Video 2026-05-02 at 01.21.18.mp4" data-type="mp4">
             <div class="carousel-video-thumb">
-              <video src="WhatsApp Video 2026-05-02 at 01.21.18.mp4" muted playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;pointer-events:none;"></video>
+              <video src="WhatsApp Video 2026-05-02 at 01.21.18.mp4" autoplay muted loop playsinline preload="auto" style="width:100%;height:100%;object-fit:cover;pointer-events:none;"></video>
               <div class="play-overlay">
                 <div class="play-btn">
                   <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg>
@@ -1160,7 +1160,7 @@
           </div>
           <div class="carousel-card" data-video="WhatsApp Video 2026-05-02 at 01.21.23.mp4" data-type="mp4">
             <div class="carousel-video-thumb">
-              <video src="WhatsApp Video 2026-05-02 at 01.21.23.mp4" muted playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;pointer-events:none;"></video>
+              <video src="WhatsApp Video 2026-05-02 at 01.21.23.mp4" autoplay muted loop playsinline preload="auto" style="width:100%;height:100%;object-fit:cover;pointer-events:none;"></video>
               <div class="play-overlay">
                 <div class="play-btn">
                   <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg>
@@ -1171,7 +1171,7 @@
           </div>
           <div class="carousel-card" data-video="WhatsApp Video 2026-05-02 at 01.21.12.mp4" data-type="mp4">
             <div class="carousel-video-thumb">
-              <video src="WhatsApp Video 2026-05-02 at 01.21.12.mp4" muted playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;pointer-events:none;"></video>
+              <video src="WhatsApp Video 2026-05-02 at 01.21.12.mp4" autoplay muted loop playsinline preload="auto" style="width:100%;height:100%;object-fit:cover;pointer-events:none;"></video>
               <div class="play-overlay">
                 <div class="play-btn">
                   <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg>
@@ -1182,7 +1182,7 @@
           </div>
           <div class="carousel-card" data-video="WhatsApp Video 2026-05-02 at 01.21.13.mp4" data-type="mp4">
             <div class="carousel-video-thumb">
-              <video src="WhatsApp Video 2026-05-02 at 01.21.13.mp4" muted playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;pointer-events:none;"></video>
+              <video src="WhatsApp Video 2026-05-02 at 01.21.13.mp4" autoplay muted loop playsinline preload="auto" style="width:100%;height:100%;object-fit:cover;pointer-events:none;"></video>
               <div class="play-overlay">
                 <div class="play-btn">
                   <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg>
@@ -1540,17 +1540,20 @@
 
     cards.forEach(card => {
       card.addEventListener('click', () => {
+        if (isDragging) return;
         const videoUrl = card.dataset.video;
         const videoType = card.dataset.type;
+
+        // Pausa todos os vídeos do carrossel
+        track.querySelectorAll('video').forEach(v => v.pause());
+
         videoModalInner.innerHTML = `<button class="video-modal-close" id="videoModalClose" aria-label="Fechar vídeo">×</button>`;
 
         if (videoUrl && videoType === 'youtube') {
           const sep = videoUrl.includes('?') ? '&' : '?';
           videoModalInner.innerHTML += `<iframe src="${videoUrl}${sep}autoplay=1" allow="autoplay; fullscreen" allowfullscreen></iframe>`;
         } else if (videoUrl && videoType === 'mp4') {
-          videoModalInner.innerHTML += `<video src="${videoUrl}" autoplay controls playsinline></video>`;
-        } else {
-          videoModalInner.innerHTML += `<div style="width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--wine-dark);border-radius:12px;color:var(--gold);gap:16px;font-family:'Playfair Display',serif;font-size:16px;text-align:center;padding:24px;"><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="2.18"/><path d="M7 2v20M17 2v20M2 12h20"/></svg>Vídeo em breve<span style="font-size:13px;color:rgba(245,239,230,0.6);font-family:Raleway,sans-serif;">Substitua o placeholder com a URL do vídeo</span></div>`;
+          videoModalInner.innerHTML += `<video src="${videoUrl}" autoplay controls playsinline style="width:100%;height:100%;border-radius:12px;background:#000;"></video>`;
         }
 
         videoModal.classList.add('active');
@@ -1564,6 +1567,8 @@
       videoModal.classList.remove('active');
       document.body.style.overflow = '';
       videoModalInner.innerHTML = `<button class="video-modal-close" id="videoModalClose" aria-label="Fechar vídeo">×</button>`;
+      // Retoma os vídeos mudos do carrossel
+      track.querySelectorAll('video').forEach(v => { v.muted = true; v.play().catch(()=>{}); });
     }
 
     videoModal.addEventListener('click', e => { if (e.target === videoModal) closeVideoModal(); });
